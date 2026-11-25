@@ -31,6 +31,10 @@ export interface KineticNavigationProps {
   logoHref?: string;
   menuLabel?: string;
   closeLabel?: string;
+  /** Inline links in the header on wide screens. Hidden once the menu takes over. */
+  showInlineLinks?: boolean;
+  /** Sits next to the inline links, e.g. a contact button. */
+  headerAction?: React.ReactNode;
   className?: string;
 }
 
@@ -40,6 +44,8 @@ export function Component({
   logoHref = "#top",
   menuLabel = "Menu",
   closeLabel = "Close",
+  showInlineLinks = true,
+  headerAction,
   className,
 }: KineticNavigationProps) {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -246,6 +252,22 @@ export function Component({
               )}
 
               <div className="nav-row__right">
+                {showInlineLinks ? (
+                  <div className="nav-inline">
+                    {links.map((link) => (
+                      <a
+                        key={`inline-${link.href}-${link.label}`}
+                        href={link.href}
+                        className="nav-inline-link link-line"
+                      >
+                        {link.label}
+                      </a>
+                    ))}
+                  </div>
+                ) : null}
+
+                {headerAction}
+
                 <button
                   type="button"
                   className="nav-close-btn"

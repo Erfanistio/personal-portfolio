@@ -49,12 +49,44 @@ html[data-kinetic-menu] {
   display: flex;
   align-items: center;
   gap: 1.25rem;
+  pointer-events: auto;
+}
+
+/* The old header's inline links and contact button, kept for wide screens. */
+.sg-nav .nav-inline {
+  display: none;
+  align-items: center;
+  gap: 2.25rem;
+}
+
+.sg-nav .nav-inline-link {
+  font-size: 0.875rem;
+  color: color-mix(in srgb, var(--foreground) 72%, transparent);
+  text-decoration: none;
+  transition: color 250ms var(--cubic-nav);
+}
+
+.sg-nav .nav-inline-link:hover,
+.sg-nav .nav-inline-link:focus-visible {
+  color: var(--foreground);
+}
+
+@media (min-width: 900px) {
+  .sg-nav .nav-inline {
+    display: flex;
+  }
+}
+
+/* The inline group is redundant once the overlay is open. */
+.sg-nav:has(.nav-overlay-wrapper[data-nav="open"]) .nav-inline,
+.sg-nav:has(.nav-overlay-wrapper[data-nav="open"]) .nav-header-action {
+  opacity: 0;
+  pointer-events: none;
 }
 
 /* Menu button */
 .sg-nav .nav-close-btn {
   display: inline-flex;
-  align-items: center;
   gap: 0.65rem;
   min-height: 2.875rem;
   padding: 0 0.3rem 0 1.1rem;
