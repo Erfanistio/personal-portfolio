@@ -1,0 +1,54 @@
+/* The name in the hero, drawn as dots. Bencho's particles, Lastoria's shape. */
+.word {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: clamp(15rem, 28vw, 26rem);
+  aspect-ratio: 35 / 12;
+  isolation: isolate;
+}
+
+.glow {
+  position: absolute;
+  inset: 18% 10%;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 50% 52%,
+    rgba(155, 108, 255, 0.3),
+    rgba(255, 71, 151, 0.1) 48%,
+    transparent 72%
+  );
+  filter: blur(26px);
+  opacity: 0.85;
+  pointer-events: none;
+}
+
+.canvas {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  cursor: crosshair;
+  touch-action: pan-y;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html[data-cursor="on"] .canvas {
+  cursor: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .canvas {
+    animation: mark-breathe 11s ease-in-out infinite;
+  }
+}
+
+@keyframes mark-breathe {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.012);
+  }
+}

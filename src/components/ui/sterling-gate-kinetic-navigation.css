@@ -1,0 +1,260 @@
+/* ---------------------------------------------------------------------------
+   Sterling Gate kinetic navigation
+   Scoped under .sg-nav so its generic class names cannot leak into the page.
+   Palette: obsidian ground, ivory ink, violet and magenta ambient shapes.
+--------------------------------------------------------------------------- */
+
+html[data-kinetic-menu] {
+  overflow: hidden;
+}
+
+.sg-nav {
+  --cubic-nav: cubic-bezier(0.65, 0.05, 0, 1);
+}
+
+/* Header ------------------------------------------------------------------ */
+.sg-nav .site-header-wrapper {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 85;
+  pointer-events: none;
+}
+
+.sg-nav .header {
+  padding-block: 1rem;
+}
+
+.sg-nav .container.is--full {
+  width: 100%;
+  max-width: 88rem;
+  margin-inline: auto;
+  padding-inline: var(--page-x);
+}
+
+.sg-nav .nav-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+.sg-nav .nav-logo-row {
+  display: inline-flex;
+  align-items: center;
+  pointer-events: auto;
+  text-decoration: none;
+}
+
+.sg-nav .nav-row__right {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+/* Menu button */
+.sg-nav .nav-close-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  min-height: 2.875rem;
+  padding: 0 0.3rem 0 1.1rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  background: rgba(17, 19, 21, 0.6);
+  color: var(--foreground);
+  font: inherit;
+  cursor: pointer;
+  pointer-events: auto;
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  transition:
+    border-color 300ms var(--cubic-nav),
+    background-color 300ms var(--cubic-nav);
+}
+
+.sg-nav .nav-close-btn:hover {
+  border-color: var(--accent);
+  background: rgba(155, 108, 255, 0.12);
+}
+
+.sg-nav .menu-button-text {
+  height: 1.2em;
+  overflow: hidden;
+  font-size: 0.875rem;
+  line-height: 1.2;
+}
+
+.sg-nav .menu-button-text p {
+  margin: 0;
+  line-height: 1.2;
+}
+
+.sg-nav .icon-wrap {
+  display: grid;
+  place-items: center;
+  width: 2.35rem;
+  height: 2.35rem;
+  border-radius: 999px;
+  background: rgba(243, 241, 234, 0.1);
+}
+
+.sg-nav .menu-button-icon {
+  display: block;
+  width: 14px;
+  height: 14px;
+  color: var(--foreground);
+}
+
+/* Overlay ----------------------------------------------------------------- */
+.sg-nav .fullscreen-menu-container {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  pointer-events: none;
+}
+
+.sg-nav .nav-overlay-wrapper {
+  position: fixed;
+  inset: 0;
+  display: none;
+  overflow: hidden;
+}
+
+.sg-nav .overlay {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  visibility: hidden;
+  background: rgba(9, 10, 12, 0.72);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  pointer-events: auto;
+}
+
+.sg-nav .menu-content {
+  position: absolute;
+  inset: 0 0 0 auto;
+  width: min(34rem, 100%);
+  overflow: hidden;
+  pointer-events: auto;
+  background: #0b0d10;
+  border-left: 1px solid var(--line);
+  transform: translateX(120%);
+  box-shadow: -30px 0 80px rgba(0, 0, 0, 0.45);
+}
+
+.sg-nav .menu-bg {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.sg-nav .backdrop-layer {
+  position: absolute;
+  inset: 0;
+  transform: translateX(101%);
+}
+
+.sg-nav .backdrop-layer.first {
+  background: #101317;
+}
+
+.sg-nav .backdrop-layer.second {
+  background: #161a20;
+}
+
+.sg-nav .backdrop-layer:not(.first):not(.second) {
+  background: linear-gradient(160deg, #111315 0%, #1a1428 55%, #111315 100%);
+}
+
+.sg-nav .ambient-background-shapes {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.sg-nav .bg-shape {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 300ms var(--cubic-nav);
+}
+
+.sg-nav .bg-shape.active {
+  opacity: 1;
+}
+
+/* Menu list --------------------------------------------------------------- */
+.sg-nav .menu-content-wrapper {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  justify-content: center;
+  padding: 6.5rem clamp(1.5rem, 5vw, 3rem) 3rem;
+}
+
+.sg-nav .menu-list {
+  display: grid;
+  gap: 0.15rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.sg-nav .menu-list-item {
+  overflow: hidden;
+}
+
+.sg-nav .nav-link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+  color: var(--foreground);
+  text-decoration: none;
+}
+
+.sg-nav .nav-link-text {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(2.1rem, 5vw, 3.15rem);
+  line-height: 1.04;
+  letter-spacing: -0.04em;
+  transition: color 300ms var(--cubic-nav);
+}
+
+.sg-nav .nav-link-hover-bg {
+  position: absolute;
+  inset: 0 -1rem;
+  z-index: -1;
+  border-radius: 0.85rem;
+  background: var(--accent-soft);
+  opacity: 0;
+  transition: opacity 350ms var(--cubic-nav);
+}
+
+.sg-nav .nav-link:hover .nav-link-text,
+.sg-nav .nav-link:focus-visible .nav-link-text {
+  color: var(--accent);
+}
+
+.sg-nav .nav-link:hover .nav-link-hover-bg,
+.sg-nav .nav-link:focus-visible .nav-link-hover-bg {
+  opacity: 1;
+}
+
+@media (max-width: 640px) {
+  .sg-nav .menu-content {
+    width: 100%;
+    border-left: 0;
+  }
+
+  .sg-nav .menu-content-wrapper {
+    padding-top: 7.5rem;
+  }
+}
